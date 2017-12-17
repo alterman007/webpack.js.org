@@ -10,9 +10,18 @@ contributors:
 
 [Tapable](https://github.com/webpack/tapable) is a small library that allows you to add and apply plugins to a javascript module. It can be inherited or mixed in to other modules. It is similar to NodeJS's `EventEmitter` class, focusing on custom event emission and manipulation. However, in addition to this, `Tapable` allows you to have access to the "emittee" or "producer" of the event through callbacks arguments.
 
+[Tapable](https://github.com/webpack/tapable) 是一个小型库，允许你添加和应用插件到一个javascript模块。它可以被继承或混合到其他模块。它类似于NodeJS中的`EventEmitter`类，专注于自定义事件发射和操作。但是，除此之外，`Tapable`允许您通过回调参数访问事件的“emittee”或“producer”。
+
+
 `Tapable` has four groups of member functions:
 
+`Tapable`有四组成员函数：
+
 - `plugin(name:string, handler:function)`: This allows a custom plugin to register into a **Tapable instance**'s event. This acts similar to the `on()` method of the `EventEmitter`, which is used for registering a handler/listener to do something when the signal/event happens.
+- `apply(…pluginInstances: (AnyPlugin|function)[])`: `AnyPlugin` should be a class (or, rarely, an object) that has an `apply` method, or just a function with some registration code inside. This method is just to **apply** plugins' definition, so that the real event listeners can be registered into the _Tapable_ instance's registry.
+- `applyPlugins*(name:string, …)`: The _Tapable_ instance can apply all the plugins under a particular hash using these functions. This group of methods act like the `emit()` method of the `EventEmitter`, controlling event emission meticulously using various strategies.
+- `mixin(pt: Object)`: a simple method to extend `Tapable`'s prototype as a mixin rather than inheritance.
+- `plugin(name:string, handler:function)`: 这允许自定义插件注册到**Tapable 实例**事件中。这与EventEmitter的`on()`方法类似，用于注册处理程序/侦听器，以在发生信号/事件发生某些时间操作。
 - `apply(…pluginInstances: (AnyPlugin|function)[])`: `AnyPlugin` should be a class (or, rarely, an object) that has an `apply` method, or just a function with some registration code inside. This method is just to **apply** plugins' definition, so that the real event listeners can be registered into the _Tapable_ instance's registry.
 - `applyPlugins*(name:string, …)`: The _Tapable_ instance can apply all the plugins under a particular hash using these functions. This group of methods act like the `emit()` method of the `EventEmitter`, controlling event emission meticulously using various strategies.
 - `mixin(pt: Object)`: a simple method to extend `Tapable`'s prototype as a mixin rather than inheritance.
